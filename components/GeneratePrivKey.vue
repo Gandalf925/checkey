@@ -12,6 +12,10 @@
           <v-card-text
             >Address{{ index + 1 }} = {{ addresses[index] }}</v-card-text
           >
+          <v-card-action>
+            <v-btn @click="deleteKeys(index)">Delete</v-btn>
+
+          </v-card-action>
         </v-card>
       </v-col>
     </v-row>
@@ -62,6 +66,28 @@ export default {
       localStorage.setItem('privKeys', parsedPrivKeys)
       localStorage.setItem('pubKeys', parsedPubKeys)
       localStorage.setItem('addresses', parsedAddresses)
+    },
+    deleteKeys(index) {
+        const storagePrivKeys = JSON.parse(localStorage.getItem('privKeys'))
+        const storagePubKeys = JSON.parse(localStorage.getItem('pubKeys'))
+        const storageAddresses = JSON.parse(localStorage.getItem('addresses'))
+
+        // console.log(storagePrivKeys)
+        storagePrivKeys.splice(index, 1)
+        storagePubKeys.splice(index, 1)
+        storageAddresses.splice(index, 1)
+
+        const parsedPrivKeys = JSON.stringify(storagePrivKeys)
+        const parsedPubKeys = JSON.stringify(storagePubKeys)
+        const parsedAddresses = JSON.stringify(storageAddresses)
+
+        localStorage.setItem('privKeys', parsedPrivKeys)
+        localStorage.setItem('pubKeys', parsedPubKeys)
+        localStorage.setItem('addresses', parsedAddresses)
+
+        this.privKeys = JSON.parse(localStorage.getItem('privKeys'))
+        this.pubKeys = JSON.parse(localStorage.getItem('pubKeys'))
+        this.addresses = JSON.parse(localStorage.getItem('addresses'))
     }
   }
 }
